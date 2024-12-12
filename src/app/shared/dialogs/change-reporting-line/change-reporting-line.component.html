@@ -1,0 +1,108 @@
+<clr-modal
+  [(clrModalOpen)]="isChangeReportingLineModalOpen"
+  (clrModalClose)="closeDialog()"
+  [clrModalSize]="'lg'"
+>
+  <h3 class="modal-title">Change Reporting Line</h3>
+  <div class="modal-body">
+    <div>
+      Reassign this employee to report to a new manager. Select the desired
+      manager from the available options to update the reporting hierarchy in
+      the organization chart.
+    </div>
+
+    <form [formGroup]="changeReportingLineForm">
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="employee">Employee Name</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input
+              clrInput
+              id="employee"
+              [value]="employeeToChangeReportingLine?.name"
+              disabled
+            />
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="currentManager">Current Manager</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input
+              clrInput
+              id="currentManager"
+              [value]="employeeToChangeReportingLine?.managerName"
+              disabled
+            />
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="newManager">New Manager</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-select-container>
+            <select clrSelect id="newManager" formControlName="newManager">
+              <option
+                *ngFor="let manager of managers"
+                [value]="manager.employeeId"
+              >
+                {{ manager.name }}
+              </option>
+            </select>
+          </clr-select-container>
+        </div>
+      </div>
+    </form>
+
+    <!-- <form [formGroup]="changeReportingLineForm">
+      <clr-input-container>
+        <label for="employee">Employee Name</label>
+        <input
+          clrInput
+          id="employee"
+          [value]="employeeToChangeReportingLine?.name"
+          disabled
+        />
+      </clr-input-container>
+      <clr-input-container>
+        <label for="employee">Current Manager</label>
+        <input
+          clrInput
+          id="employee"
+          [value]="employeeToChangeReportingLine?.managerName"
+          disabled
+        />
+      </clr-input-container>
+      <clr-select-container>
+        <label for="manager">New Manager</label>
+        <select clrSelect id="manager" formControlName="newManager">
+          <option *ngFor="let manager of managers" [value]="manager.employeeId">
+            {{ manager.name }}
+          </option>
+        </select>
+      </clr-select-container>
+    </form> -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline" clrButton (click)="closeDialog()">
+      CANCEL
+    </button>
+    <button
+      class="btn btn-primary"
+      clrButton
+      (click)="submit()"
+      [disabled]="changeReportingLineForm.invalid"
+    >
+      CHANGE REPORTING
+    </button>
+  </div>
+</clr-modal>

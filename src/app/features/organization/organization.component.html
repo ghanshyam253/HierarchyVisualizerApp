@@ -1,0 +1,73 @@
+<clr-main-container>
+  <!-- Header -->
+  <header class="header-6">
+    <div class="branding">
+      <a href="javascript:void(0)">
+        <clr-icon shape="shield"></clr-icon>
+        <span class="title">Hierarchical organization Chart</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <section
+    class="content-container"
+    style="background: #192832; padding-top: 0px"
+  >
+    <div class="content-area" style="padding-top: 0px">
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <div class="card" style="margin-top: 0px">
+            <h3
+              class="card-header"
+              style="background: linear-gradient(to right, #20333a, #2c3e50)"
+            >
+              <div cds-text="body center">
+                <div class="btn-group">
+                  <div class="radio btn">
+                    <input
+                      type="radio"
+                      name="btn-group-demo-radios"
+                      id="btn-demo-radio-2"
+                      [value]="'GRID_VIEW'"
+                      [(ngModel)]="selectedView"
+                    />
+                    <label for="btn-demo-radio-2">GRID VIEW</label>
+                  </div>
+                  <div class="radio btn">
+                    <input
+                      type="radio"
+                      name="btn-group-demo-radios"
+                      id="btn-demo-radio-1"
+                      [value]="'GRAPH_VIEW'"
+                      [(ngModel)]="selectedView"
+                    />
+                    <label for="btn-demo-radio-1">GRAPH VIEW </label>
+                  </div>
+                </div>
+              </div>
+            </h3>
+            <div class="card-block" style="background: #192832">
+              <app-graph-view
+                *ngIf="selectedView === 'GRAPH_VIEW'"
+                [employees]="employees"
+              ></app-graph-view>
+              <app-grid-view
+                [employees]="employees"
+                *ngIf="selectedView === 'GRID_VIEW'"
+              ></app-grid-view>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Additional content can go here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <span>© 2024 My Company</span>
+    </div>
+  </footer>
+</clr-main-container>

@@ -1,0 +1,115 @@
+<clr-modal [(clrModalOpen)]="isAddReporteeModalOpen" [clrModalSize]="'lg'">
+  <h3 class="modal-title">
+    <span *ngIf="!isEditMode">Add New Reportee</span>
+    <span *ngIf="isEditMode">Edit Reportee</span>
+  </h3>
+  <div class="modal-body">
+    <div>
+      <span *ngIf="!isEditMode">
+        Add a new employee who will report directly to this person. Provide
+        details like name, designation, email, and phoneNumber to create their
+        profile in the organization chart.</span
+      >
+      <span *ngIf="isEditMode"
+        >Update the existing employee's profile with the necessary information.
+        Modify fields such as name, designation, email, and phone number to
+        reflect the most current data. Ensure the details are accurate to
+        maintain an up-to-date organization chart.</span
+      >
+    </div>
+    <form [formGroup]="addReporteeForm">
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="manager">MANAGER</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input
+              clrInput
+              id="manager"
+              type="text"
+              readonly
+              [value]="manager?.name || employeeToEdit?.managerName"
+            />
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="name">Employee Name</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input clrInput id="name" formControlName="name" />
+            <clr-control-error *clrIfError="'required'"
+              >Name is required</clr-control-error
+            >
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="designation">Designation</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-select-container>
+            <select clrSelect id="designation" formControlName="designation">
+              <option
+                *ngFor="
+                  let option of _designationDataService.getDesignationsList()
+                "
+                [value]="option.designationCode"
+              >
+                {{ option.designationDesc }}
+              </option>
+            </select>
+            <clr-control-error *clrIfError="'required'"
+              >Designation is required</clr-control-error
+            >
+          </clr-select-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="email">Email ID</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input clrInput id="email" type="email" formControlName="email" />
+            <clr-control-error *clrIfError="'email'"
+              >Invalid email</clr-control-error
+            >
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <label for="phoneNumber">Phone Number</label>
+        </div>
+        <div class="clr-col-8">
+          <clr-input-container>
+            <input clrInput id="phoneNumber" formControlName="phoneNumber" />
+            <clr-control-error *clrIfError="'pattern'"
+              >Invalid phone number</clr-control-error
+            >
+          </clr-input-container>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline" (click)="closeDialog()">CANCEL</button>
+    <button
+      class="btn btn-primary"
+      (click)="submit()"
+      [disabled]="addReporteeForm.invalid"
+    >
+      <span *ngIf="!isEditMode">ADD REPORTEE</span>
+      <span *ngIf="isEditMode">UPDATE REPORTEE</span>
+    </button>
+  </div>
+</clr-modal>

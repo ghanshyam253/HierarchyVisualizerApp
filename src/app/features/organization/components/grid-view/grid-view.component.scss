@@ -1,0 +1,91 @@
+$grid-border-color: #333;
+$font-color: #ffffff;
+
+clr-datagrid {
+  color: $font-color;
+  border-color: $grid-border-color;
+}
+
+:host {
+  display: block;
+  padding: 1rem;
+
+  clr-datagrid {
+    // border: 1px solid $grid-border-color; // Match mockup styling
+    // background-color: #202020; // Grid background color
+    color: $font-color; // Font color
+    width: 100%;
+    font-size: 14px; // Compact grid
+    border-collapse: collapse;
+    margin-top: 10px;
+
+    @media (max-width: 768px) {
+      font-size: 0.85rem; // Responsive adjustment for smaller screens
+    }
+  }
+
+  clr-dg-cell,
+  clr-dg-column {
+    border-color: $grid-border-color; // Cell borders
+    padding: 6px 10px; // Compact cell padding
+  }
+
+  clr-dg-footer {
+    background-color: #2a2a2a; // Footer background
+    color: #cccccc; // Footer font color
+  }
+
+  clr-dg-cell input[type="checkbox"] {
+    margin-right: 10px; // Checkbox column styling
+  }
+}
+
+// Action button styles
+.action-button {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 15px;
+  padding-right: 0px;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  clr-icon,
+  cds-icon {
+    font-size: 16px; // Icon size
+    color: #555; // Icon color
+  }
+
+  &:hover clr-icon,
+  &:hover cds-icon {
+    color: #000; // Hover effect for icons
+  }
+}
+
+// Dropdown menu styling
+clr-dropdown-menu clr-dropdown-item {
+  font-size: 14px; // Dropdown item font size
+  color: #333;
+
+  &:hover {
+    background-color: #f4f4f4; // Hover effect
+    color: #000;
+  }
+}
+
+// Actions column styling
+.actions-cell {
+  width: 15px; // Fixed width for actions column
+  min-width: 15px;
+  text-align: center; // Center align the ellipsis icon
+  padding: 0 2px; // Minimal padding
+}
+
+// Select all checkbox styling
+.selectAll {
+  width: 30px;
+  min-width: 30px;
+}

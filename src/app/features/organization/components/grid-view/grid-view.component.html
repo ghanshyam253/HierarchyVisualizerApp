@@ -1,0 +1,128 @@
+<div class="container">
+  <ng-container *ngIf="employees && employees.length > 0; else addFirstEmp">
+    <clr-datagrid>
+      <clr-dg-column class="selectAll">
+        <input
+          type="checkbox"
+          [indeterminate]="isIndeterminate"
+          [checked]="isAllSelected"
+          (change)="toggleSelectAll($event)"
+          aria-label="Select All"
+        />
+      </clr-dg-column>
+      <clr-dg-column style="width: 15px; min-width: 15px"></clr-dg-column>
+
+      <clr-dg-column [clrDgField]="'name'">Employee Name</clr-dg-column>
+      <clr-dg-column [clrDgField]="'employeeId'">Employee ID</clr-dg-column>
+      <clr-dg-column [clrDgField]="'designation'">Designation</clr-dg-column>
+      <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
+      <clr-dg-column [clrDgField]="'phoneNumber'">Phone</clr-dg-column>
+      <clr-dg-column [clrDgField]="'manager'">Manager</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let employee of employees">
+        <!-- Checkbox Column -->
+        <clr-dg-cell class="selectAll">
+          <input
+            type="checkbox"
+            [checked]="employee.selected"
+            (change)="onRowCheckboxChange(employee)"
+          />
+        </clr-dg-cell>
+
+        <!-- Actions Column with Vertical Dots (Ellipsis) -->
+        <clr-dg-cell class="actions-cell">
+          <clr-dropdown>
+            <button clrDropdownTrigger class="action-button">
+              <cds-icon shape="ellipsis-vertical"></cds-icon>
+            </button>
+
+            <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
+              <!-- Action Items in Dropdown -->
+              <button clrDropdownItem (click)="openAddReporteeDialog(employee)">
+                Add Reportee
+              </button>
+              <button clrDropdownItem (click)="openEditDialog(employee)">
+                Edit Details
+              </button>
+              <button clrDropdownItem (click)="openDeleteDialog(employee)">
+                Delete Employee
+              </button>
+              <button
+                clrDropdownItem
+                (click)="openChangeReportingLineDialog(employee)"
+              >
+                Change Reporting Line
+              </button>
+            </clr-dropdown-menu>
+          </clr-dropdown>
+        </clr-dg-cell>
+        <!-- Employee Info Columns -->
+        <clr-dg-cell>{{ employee.name }}</clr-dg-cell>
+        <clr-dg-cell>{{ employee.employeeId }}</clr-dg-cell>
+        <clr-dg-cell>{{
+          designationMapping[employee.designation] || "Unknown"
+        }}</clr-dg-cell>
+        <clr-dg-cell>{{ employee.email }}</clr-dg-cell>
+        <clr-dg-cell>{{ employee.phoneNumber }}</clr-dg-cell>
+        <clr-dg-cell>{{ employee.managerName }}</clr-dg-cell>
+      </clr-dg-row>
+    </clr-datagrid>
+  </ng-container>
+  <ng-template #addFirstEmp>
+    <p cds-text="body center">
+      <button class="btn btn-primary" (click)="addFirstEmpployee()">
+        ADD FIRST EMPLOYEE
+      </button>
+    </p>
+  </ng-template>
+</div>
+
+<app-add-reportee
+  *ngIf="isAddReporteeDialogOpen"
+  [isAddReporteeModalOpen]="isAddReporteeDialogOpen"
+  [manager]="selectedManager"
+  [employeeToEdit]="employeeToEdit"
+  [isEditMode]="isEditMode"
+  (closeAddReporteeModal)="closeAddReporteeDialog()"
+  (saveReportee)="onSaveReportee($event)"
+>
+</app-add-reportee>
+
+<!-- Delete Employee Dialog -->
+<app-delete-employee
+  *ngIf="isDeleteEmployeeDialogOpen"
+  [isDeleteEmployeeModalOpen]="isDeleteEmployeeDialogOpen"
+  [employeeToDelete]="employeeToDelete"
+  (closeDeleteEmployeeModal)="closeDeleteEmployeeDialog()"
+  (confirmDelete)="onDeleteEmployee($event)"
+>
+</app-delete-employee>
+
+<!-- Change Reporting Line Dialog -->
+<app-change-reporting-line
+  *ngIf="isChangeReportingLineDialogOpen"
+  [isChangeReportingLineModalOpen]="isChangeReportingLineDialogOpen"
+  [employeeToChangeReportingLine]="employeeToChangeReportingLine"
+  (closeChangeReportingLineModal)="closeChangeReportingLineDialog()"
+  (saveNewManager)="onChangeReportingLine($event)"
+>
+</app-change-reporting-line>
+
+<div class="alert alert-danger" role="alert" *ngIf="showToast">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <cds-icon class="alert-icon" shape="info-circle"></cds-icon>
+      </div>
+      <span class="alert-text">{{ toastMessage }}</span>
+    </div>
+  </div>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="showToast = false"
+  >
+    <cds-icon aria-hidden="true" shape="close"></cds-icon>
+  </button>
+</div>

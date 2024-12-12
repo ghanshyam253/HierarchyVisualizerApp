@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+// @import '~@clr/ui/src/utils/global';
+// @import '~@clr/ui/src/utils/variables';
+// @import '~@clr/ui/src/utils/mixins';
+
+@import "~@clr/ui/clr-ui.min.css";
+@import "~@clr/icons/clr-icons.min.css";
+
+// @import 'node_modules/@clr/ui/src/utils/variables.scss';
+// @import 'node_modules/@clr/ui/src/utils/mixins.scss';
+// @import 'node_modules/@clr/ui/src/utils/global.scss';
+
+// Override Clarity colors
+$clr-global-bg-color: #f5f5f5; // Change the global background color
+$clr-primary-color: #0078d4; // Change the primary color
+
+// Import the global styles after customization
+// @import 'node_modules/@clr/ui/src/utils/global.scss';
+
+.clr-form-control {
+  /* margin-top: 1.2rem; */
+  margin-top: 0px;
+}
+form {
+  .clr-row {
+    padding-top: 15px;
+  }
+  margin-bottom: 10px;
+}
+.modal-content {
+  .modal-body-wrapper {
+    overflow: hidden;
+    max-height: 80vh;
+  }
+}
