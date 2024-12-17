@@ -1,17 +1,19 @@
-<div class="alert alert-success" role="alert">
+<div
+  class="alert alert-warning"
+  role="alert"
+  *ngIf="showNotificationForEmployeeUnavailability"
+>
   <div class="alert-items">
     <div class="alert-item static">
       <div class="alert-icon-wrapper">
         <cds-icon class="alert-icon" shape="exclamation-triangle"></cds-icon>
       </div>
       <span class="alert-text">
-        <div><b>Notification: Incomplete Functionality in Graph View</b></div>
+        <div><b>Notification: Employee Unavailability</b></div>
         <div>
-          Please be informed that the Org Chart functionalities are not fully
-          available in the Graph view at this time. To perform any necessary
-          actions, kindly switch to the Grid view.
+          The employee you have bookmarked is currently unavailable. Please
+          bookmark the correct employee.
         </div>
-        <div>Thank you for your understanding and cooperation.</div>
       </span>
     </div>
   </div>
@@ -22,3 +24,19 @@
   id="orgChartContainer"
   style="width: 100%; height: 100%"
 ></div>
+
+<div *ngIf="!employeeList || employeeList?.length === 0">
+  <p cds-text="body center" class="addNewEmpBtn">
+    <button
+      class="btn btn-primary"
+      (click)="commonTemplatesActionsComponent.addFirstEmpployee()"
+    >
+      ADD FIRST EMPLOYEE
+    </button>
+  </p>
+</div>
+
+<app-common-templates-actions
+  #commonTemplatesActions
+  [employees]="employeeList"
+></app-common-templates-actions>

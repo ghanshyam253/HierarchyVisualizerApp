@@ -12,7 +12,7 @@ export class OrganizationComponent {
   employees: Employee[] = [];
   navLevel = 1;
   constructor(private store: Store) {}
-  selectedView: string = 'GRID_VIEW';
+  selectedView: string = 'GRAPH_VIEW';
   ngOnInit() {
     // Fetch all employees
     this.store.select(selectAllEmployees).subscribe((employeesFromStore) => {

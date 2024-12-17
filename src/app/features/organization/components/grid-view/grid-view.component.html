@@ -38,18 +38,39 @@
 
             <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
               <!-- Action Items in Dropdown -->
-              <button clrDropdownItem (click)="openAddReporteeDialog(employee)">
+              <button
+                clrDropdownItem
+                (click)="
+                  commonTemplatesActionsComponent.openAddReporteeDialog(
+                    employee
+                  )
+                "
+              >
                 Add Reportee
               </button>
-              <button clrDropdownItem (click)="openEditDialog(employee)">
+              <button
+                clrDropdownItem
+                (click)="
+                  commonTemplatesActionsComponent.openEditDialog(employee)
+                "
+              >
                 Edit Details
               </button>
-              <button clrDropdownItem (click)="openDeleteDialog(employee)">
+              <button
+                clrDropdownItem
+                (click)="
+                  commonTemplatesActionsComponent.openDeleteDialog(employee)
+                "
+              >
                 Delete Employee
               </button>
               <button
                 clrDropdownItem
-                (click)="openChangeReportingLineDialog(employee)"
+                (click)="
+                  commonTemplatesActionsComponent.openChangeReportingLineDialog(
+                    employee
+                  )
+                "
               >
                 Change Reporting Line
               </button>
@@ -70,59 +91,17 @@
   </ng-container>
   <ng-template #addFirstEmp>
     <p cds-text="body center">
-      <button class="btn btn-primary" (click)="addFirstEmpployee()">
+      <button
+        class="btn btn-primary"
+        (click)="commonTemplatesActionsComponent.addFirstEmpployee()"
+      >
         ADD FIRST EMPLOYEE
       </button>
     </p>
   </ng-template>
 </div>
 
-<app-add-reportee
-  *ngIf="isAddReporteeDialogOpen"
-  [isAddReporteeModalOpen]="isAddReporteeDialogOpen"
-  [manager]="selectedManager"
-  [employeeToEdit]="employeeToEdit"
-  [isEditMode]="isEditMode"
-  (closeAddReporteeModal)="closeAddReporteeDialog()"
-  (saveReportee)="onSaveReportee($event)"
->
-</app-add-reportee>
-
-<!-- Delete Employee Dialog -->
-<app-delete-employee
-  *ngIf="isDeleteEmployeeDialogOpen"
-  [isDeleteEmployeeModalOpen]="isDeleteEmployeeDialogOpen"
-  [employeeToDelete]="employeeToDelete"
-  (closeDeleteEmployeeModal)="closeDeleteEmployeeDialog()"
-  (confirmDelete)="onDeleteEmployee($event)"
->
-</app-delete-employee>
-
-<!-- Change Reporting Line Dialog -->
-<app-change-reporting-line
-  *ngIf="isChangeReportingLineDialogOpen"
-  [isChangeReportingLineModalOpen]="isChangeReportingLineDialogOpen"
-  [employeeToChangeReportingLine]="employeeToChangeReportingLine"
-  (closeChangeReportingLineModal)="closeChangeReportingLineDialog()"
-  (saveNewManager)="onChangeReportingLine($event)"
->
-</app-change-reporting-line>
-
-<div class="alert alert-danger" role="alert" *ngIf="showToast">
-  <div class="alert-items">
-    <div class="alert-item static">
-      <div class="alert-icon-wrapper">
-        <cds-icon class="alert-icon" shape="info-circle"></cds-icon>
-      </div>
-      <span class="alert-text">{{ toastMessage }}</span>
-    </div>
-  </div>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="showToast = false"
-  >
-    <cds-icon aria-hidden="true" shape="close"></cds-icon>
-  </button>
-</div>
+<app-common-templates-actions
+  #commonTemplatesActions
+  [employees]="employees"
+></app-common-templates-actions>

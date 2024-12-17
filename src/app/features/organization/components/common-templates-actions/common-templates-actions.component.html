@@ -1,0 +1,49 @@
+<app-add-reportee
+  *ngIf="isAddReporteeDialogOpen"
+  [isAddReporteeModalOpen]="isAddReporteeDialogOpen"
+  [manager]="selectedManager"
+  [employeeToEdit]="employeeToEdit"
+  [isEditMode]="isEditMode"
+  (closeAddReporteeModal)="closeAddReporteeDialog()"
+  (saveReportee)="onSaveReportee($event)"
+>
+</app-add-reportee>
+
+<!-- Delete Employee Dialog -->
+<app-delete-employee
+  *ngIf="isDeleteEmployeeDialogOpen"
+  [isDeleteEmployeeModalOpen]="isDeleteEmployeeDialogOpen"
+  [employeeToDelete]="employeeToDelete"
+  (closeDeleteEmployeeModal)="closeDeleteEmployeeDialog()"
+  (confirmDelete)="onDeleteEmployee($event)"
+>
+</app-delete-employee>
+
+<!-- Change Reporting Line Dialog -->
+<app-change-reporting-line
+  *ngIf="isChangeReportingLineDialogOpen"
+  [isChangeReportingLineModalOpen]="isChangeReportingLineDialogOpen"
+  [employeeToChangeReportingLine]="employeeToChangeReportingLine"
+  (closeChangeReportingLineModal)="closeChangeReportingLineDialog()"
+  (saveNewManager)="onChangeReportingLine($event)"
+>
+</app-change-reporting-line>
+
+<div class="alert alert-danger" role="alert" *ngIf="showToast">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <cds-icon class="alert-icon" shape="info-circle"></cds-icon>
+      </div>
+      <span class="alert-text">{{ toastMessage }}</span>
+    </div>
+  </div>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="showToast = false"
+  >
+    <cds-icon aria-hidden="true" shape="close"></cds-icon>
+  </button>
+</div>

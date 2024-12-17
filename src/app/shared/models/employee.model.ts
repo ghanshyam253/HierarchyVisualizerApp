@@ -8,4 +8,5 @@ export interface Employee {
   managerId?: string; // Optional property for reporting to a manager
   selected?: boolean; // Tracks if the employee is selected (for UI purposes)
   isManager?: boolean; // Indicates if the employee is a manager
+  children?: Employee[]; // Optional property for hierarchical data
 }
