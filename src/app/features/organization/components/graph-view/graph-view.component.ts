@@ -193,8 +193,8 @@ export class GraphViewComponent implements OnInit {
 
         <div style="font-size: 16px; font-weight: bold;">${node.data.name}</div>
         <div>${designationDesc}</div>
-        <div>${node.data.email}</div>
-        <div>${node.data.phoneNumber}</div>
+        <div><b>Email: </b>${node.data.email}</div>
+        <div><b>Phone: </b>${node.data.phoneNumber}</div>
 
           <div class="action-buttons" style="">
         
